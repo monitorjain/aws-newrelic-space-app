@@ -6,5 +6,5 @@ A complete workshop guide can be found here (https://docs.google.com/document/d/
 
 This repository builds upon https://github.com/polfliet/newrelic-k8s-guestbook but is using AWS Lambda, EKS, SQS, DynamoDB:
 
-![architecture](https://user-images.githubusercontent.com/45029322/58158259-5c6ccf80-7c7a-11e9-85ab-19c09b014c18.png)
+![architecture](https://user-images.githubusercontent.com/45892212/69208590-39c75f00-0ba8-11ea-96ed-a0832b60bb1a.png)
 
