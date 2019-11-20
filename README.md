@@ -1,3 +1,5 @@
+In this project, my aim is to teach you the art and science of building microservices using AWS modern services like EKS, Lambda and Fargate and then leverage New Relic to manage/run the service in production. 
+
 ## This project is a build on Kubernetes Guestbook application
 A complete workshop guide can be found here (https://docs.google.com/document/d/11xaIpydFD9n_CNoRt1AQlYi6LxHL-M5raQh4AWipIzY/edit#) 
 
