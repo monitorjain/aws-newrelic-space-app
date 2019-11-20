@@ -1,4 +1,5 @@
-# Mass human migration app (If given a choice, will you go to Mars or Jupiter?)
+# Mass human migration app 
+(If given a choice, will you go to Mars or Jupiter?)
 
 ## This project is a build on Kubernetes Guestbook application
 A complete workshop guide can be found here (https://docs.google.com/document/d/11xaIpydFD9n_CNoRt1AQlYi6LxHL-M5raQh4AWipIzY/edit#) 
