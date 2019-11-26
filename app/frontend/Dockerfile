@@ -13,6 +13,7 @@ RUN npm install
 COPY index.js .
 COPY newrelic.js .
 COPY views /usr/src/app/views
+COPY public /usr/src/app/public
 
 EXPOSE 3000
 
