@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 const querystring = require('querystring');
+var path = require('path');
+
 console.log('AWS_REGION: ' + process.env.AWS_REGION);
 var workshopPrefix = process.env.WORKSHOP_PREFIX;
 if (workshopPrefix === undefined) {
@@ -30,12 +32,14 @@ sqs.getQueueUrl(params, function(err, data) {
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 app.locals.newrelic = newrelic;
 
 // Render home page
 app.get('/', function (req, res) {
-    res.render('index', { title: 'New Relic K8s Guestbook', message: 'Post a message on our Lambda guestbook.' });
+    res.render('index', { title: 'Space One Program', message: 'Its year 2045. Alas, Earth is Uninhabitable!' });
+    checkUserAgent(req);
 });
 
 // Get messages from DynamoDB
@@ -101,3 +105,14 @@ app.get('/healthz', function (req, res) {
 app.listen(process.env.PORT || 3000, function () {
     console.error('Frontend ' + process.env.NEW_RELIC_METADATA_KUBERNETES_POD_NAME + ' listening on port 3000!');
 });
+
+var checkUserAgent = function(req) {
+    var userAgent = req.headers['user-agent'];
+    console.log('[debug] User agent:' + userAgent);
+    if (userAgent.toLowerCase().indexOf('android') != -1) {
+        if (Math.random() * 100 < 20) { // 20% of the Android devices
+            console.error('Error exception: Failed to parse user-agent "' + userAgent + '"');
+            throw Error('Failed parsing user agent');
+        }
+    }
+};
