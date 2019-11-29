@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: 'EKS cluster for New Relic Guestbook'
+Description: 'EKS cluster for Space App'
 
 Parameters:
   Prefix:
@@ -9,7 +9,7 @@ Parameters:
     Default: ''
   ClusterName:
     Type: String
-    Default: NewRelicGuestbookCluster
+    Default: NewRelicReinventSpaceAppCluster
 
 Resources:
   EKSRole:
@@ -38,7 +38,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
       - Key: Name
-        Value: !Sub '${Prefix}NewRelicGuestbookVPC'
+        Value: !Sub '${Prefix}NewRelicSpaceAppVPC'
   InternetGateway:
     Type: AWS::EC2::InternetGateway
   VPCGatewayAttachment:
@@ -80,7 +80,7 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub '${Prefix}NewRelicGuestbookSubnet01'
+        Value: !Sub '${Prefix}NewRelicSpaceAppSubnet01'
   Subnet02:
     Type: AWS::EC2::Subnet
     Properties:
@@ -94,7 +94,7 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub '${Prefix}NewRelicGuestbookSubnet02'
+        Value: !Sub '${Prefix}NewRelicSpaceAppSubnet02'
   Subnet01RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -112,7 +112,7 @@ Resources:
   ControlPlaneSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub '${Prefix}NewRelicGuestbookControlPlaneSecurityGroup'
+      GroupName: !Sub '${Prefix}NewRelicSpaceAppControlPlaneSecurityGroup'
       GroupDescription: Cluster communication with worker nodes
       VpcId:
         Ref: VPC
@@ -122,7 +122,7 @@ Resources:
     Type: AWS::EKS::Cluster
     Properties:
       Name: !Sub '${Prefix}${ClusterName}'
-      Version: '1.11'
+      Version: '1.12'
       RoleArn:
         !Sub arn:aws:iam::${AWS::AccountId}:role/${Prefix}eks-role
       ResourcesVpcConfig:

@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: 'Lambda + SQS for New Relic Guestbook'
+Description: 'Lambda + SQS for Space Migration App'
 
 Parameters:
   NewRelicAccountId:
@@ -36,7 +36,7 @@ Resources:
   MessagesTable:
     Type: 'AWS::DynamoDB::Table'
     Properties:
-      TableName: !Sub '${Prefix}GUESTBOOK_MESSAGES'
+      TableName: !Sub '${Prefix}SPACE_MESSAGES'
       AttributeDefinitions:
         - AttributeName: CHANNEL
           AttributeType: S
@@ -55,7 +55,7 @@ Resources:
   FrontendQueue:
     Type: 'AWS::SQS::Queue'
     Properties:
-      QueueName: !Sub '${Prefix}guestbook-frontend'
+      QueueName: !Sub '${Prefix}spaceapp-frontend'
       DelaySeconds: '0'
       MaximumMessageSize: '262144'
       MessageRetentionPeriod: '345600'
@@ -64,7 +64,7 @@ Resources:
   ParserQueue:
     Type: 'AWS::SQS::Queue'
     Properties:
-      QueueName: !Sub '${Prefix}guestbook-parser'
+      QueueName: !Sub '${Prefix}spaceapp-parser'
       DelaySeconds: '0'
       MaximumMessageSize: '262144'
       MessageRetentionPeriod: '345600'
@@ -76,7 +76,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties: 
       Code: 
-        S3Bucket: 'newrelic-lambda-guestbook'
+        S3Bucket: 'newrelic-lambda-spaceapp'
         S3Key: 'parser.zip'
       FunctionName: !Sub '${Prefix}ParserFunction'
       Handler: 'index.handler'
@@ -85,7 +85,7 @@ Resources:
         Fn::GetAtt:
           - LambdaRole
           - Arn
-      Runtime: 'nodejs8.10'
+      Runtime: 'nodejs10.x'
       Environment:
         Variables:
           NEW_RELIC_FEATURE_FLAG_SERVERLESS_MODE: true
@@ -100,7 +100,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties: 
       Code: 
-        S3Bucket: 'newrelic-lambda-guestbook'
+        S3Bucket: 'newrelic-lambda-spaceapp'
         S3Key: 'worker.zip'
       FunctionName: !Sub '${Prefix}WorkerFunction'
       Handler: 'index.handler'
@@ -109,7 +109,7 @@ Resources:
         Fn::GetAtt:
           - LambdaRole
           - Arn
-      Runtime: 'nodejs8.10'
+      Runtime: 'nodejs10.x'
       Environment:
         Variables:
           NEW_RELIC_FEATURE_FLAG_SERVERLESS_MODE: true

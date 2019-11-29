@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'EKS Node Group for New Relic Guestbook'
+Description: 'EKS Node Group for Space App'
 
 Parameters:
   KeyName:
@@ -8,7 +8,7 @@ Parameters:
   ClusterName:
     Description: The cluster name provided when the cluster was created. If it is incorrect, nodes will not be able to join the cluster.
     Type: String
-    Default: NewRelicGuestbookCluster
+    Default: NewRelicReinventSpaceAppCluster
   NodeImageId:
     Type: AWS::EC2::Image::Id
     Description: AMI id for the node instances.
@@ -16,11 +16,11 @@ Parameters:
   NodeGroupName:
     Description: Unique identifier for the Node Group.
     Type: String
-    Default: NewRelicGuestbookNodeGroup
+    Default: NewRelicSpaceAppNodeGroup
   ClusterControlPlaneSecurityGroup:
     Description: The security group of the cluster control plane.
     Type: AWS::EC2::SecurityGroup::Id
-    Default: NewRelicGuestbookControlPlaneSecurityGroup
+    Default: NewRelicSpaceAppControlPlaneSecurityGroup
   VpcId:
     Description: The VPC of the worker instances
     Type: AWS::EC2::VPC::Id
@@ -70,7 +70,7 @@ Resources:
   NodeInstanceRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub '${Prefix}NewRelicGuestbookNodeInstanceRole'
+      RoleName: !Sub '${Prefix}NewRelicSpaceAppNodeInstanceRole'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -159,9 +159,9 @@ Resources:
   NodeGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      DesiredCapacity: 1
+      DesiredCapacity: 2
       LaunchConfigurationName: !Ref NodeLaunchConfig
-      MinSize: 1
+      MinSize: 2
       MaxSize: 4
       VPCZoneIdentifier:
         !Ref Subnets
@@ -174,8 +174,8 @@ Resources:
         PropagateAtLaunch: 'true'
     UpdatePolicy:
       AutoScalingRollingUpdate:
-        MaxBatchSize: '1'
-        MinInstancesInService: 1
+        MaxBatchSize: '2'
+        MinInstancesInService: 2
         PauseTime: 'PT5M'
   NodeLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
