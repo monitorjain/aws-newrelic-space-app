@@ -20,7 +20,7 @@ var sqs = new AWS.SQS();
 // Get SQS queue
 var queueUrl;
 var params = {
-    QueueName: workshopPrefix + 'guestbook-frontend'
+    QueueName: workshopPrefix + 'spaceapp-frontend'
 };
 sqs.getQueueUrl(params, function(err, data) {
     if (err) {
@@ -31,6 +31,8 @@ sqs.getQueueUrl(params, function(err, data) {
 });
 
 const app = express();
+app.locals.newrelic = newrelic;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
@@ -46,7 +48,7 @@ app.get('/', function (req, res) {
 app.get('/message', function (req, res) {
     console.error(' [x] Get messages from DynamoDB')
     var params = {
-        TableName: workshopPrefix + 'GUESTBOOK_MESSAGES',
+        TableName: workshopPrefix + 'SPACE_MESSAGES',
         ExpressionAttributeValues: {
             ':c': {S: '1'}
         },
@@ -68,6 +70,9 @@ app.get('/message', function (req, res) {
 
         }
     });
+
+    checkUserAgent(req);
+
 });
 
 // Post a message to the guestbook
@@ -94,12 +99,15 @@ app.post('/message', function(req, res) {
             console.log('Frontend error sending to queue: ', err);
         }
         res.status(200).send('OK');
-    });   
+    }); 
+    
+    checkUserAgent(req);
 });
 
 // Health check
 app.get('/healthz', function (req, res) {
-    res.status(200).send('OK');        
+    res.status(200).send('OK');  
+    checkUserAgent(req);      
 });
 
 app.listen(process.env.PORT || 3000, function () {
