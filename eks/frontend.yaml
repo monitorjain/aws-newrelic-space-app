@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: docker.io/monitorjain/frontend:latest
+        image: docker.io/monitorjain/spaceapp_reinvent:v2
         #image: polfliet/frontend:latest
         #imagePullPolicy: Never 
         resources:
@@ -39,10 +39,10 @@ spec:
         - name: NEW_RELIC_LICENSE_KEY
           valueFrom:
             secretKeyRef:
-              name: guestbook-secret
+              name: spaceapp-secret
               key: new_relic_license_key
         - name: NEW_RELIC_APP_NAME
-          value: SpaceOne Production K8s 
+          value: SpaceOne Production K8s - v1 
         - name: GET_HOSTS_FROM
           value: dns
           # If your cluster config does not include a dns service, then to
@@ -53,7 +53,7 @@ spec:
         - name: AWS_REGION
           value: eu-west-1
         - name: WORKSHOP_PREFIX
-          value: ''
+          value: 'Reinvent2019'
         ports:
           - containerPort: 3000
 
