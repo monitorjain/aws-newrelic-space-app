@@ -1,6 +1,6 @@
 In this project, my aim is to teach you the art and science of building microservices using AWS modern services like EKS, Lambda and Fargate and then leverage New Relic to manage/run the service in production. 
 
-## This project is a build on Kubernetes Guestbook application
+## This project is a build on the famous K8s Guestbook app. In this project, I've simply added a Jade/Pug HTML Template Engine to that app, plus some other Observability Funk. Although, I'm using New Relic SaaS Observability Service using its MELT (Metrics, Events, Logs and Traces sensors), the fundamentals here are portable to other observability platform. 
 A complete workshop guide can be found here (https://docs.google.com/document/d/11xaIpydFD9n_CNoRt1AQlYi6LxHL-M5raQh4AWipIzY/edit#) 
 
 # Mass human migration app 
