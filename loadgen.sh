@@ -9,7 +9,7 @@ PORT=$2
 SLEEP=$3
 USER_AGENT="Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Mobile Safari/537.36"
   
-for i in {1..10000}
+for i in {1..100}
 do
         echo -n "$i - "
         /usr/bin/time curl -A "$USER_AGENT" -d "message=AUTO_MSG_$i" -X POST http://$HOST:$PORT/message &
