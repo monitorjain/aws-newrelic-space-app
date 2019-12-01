@@ -13,3 +13,8 @@ This repository builds upon https://github.com/polfliet/newrelic-k8s-guestbook b
 
 ![architecture](https://user-images.githubusercontent.com/45892212/69208590-39c75f00-0ba8-11ea-96ed-a0832b60bb1a.png)
 
+# Key Objectives of this Github Project
+- Enhance the day-in-a-life of a technology engine member (developers, tester, DevOps, SRE, ITOps etc)
+- Enhance the day-in-a-life of a business engine member (technology executives, business executives, CXOs etc)
+
+![UserImages](https://user-images.githubusercontent.com/45892212/69908787-5edb8d80-1444-11ea-9b1c-b4b5d2b79981.png)
