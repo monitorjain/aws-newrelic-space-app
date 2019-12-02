@@ -71,7 +71,7 @@ app.get('/message', function (req, res) {
         }
     });
 
-    checkUserAgent(req);
+   // checkUserAgent(req);
 
 });
 
@@ -101,13 +101,13 @@ app.post('/message', function(req, res) {
         res.status(200).send('OK');
     }); 
     
-    checkUserAgent(req);
+  //  checkUserAgent(req);
 });
 
 // Health check
 app.get('/healthz', function (req, res) {
     res.status(200).send('OK');  
-    checkUserAgent(req);      
+   // checkUserAgent(req);      
 });
 
 app.listen(process.env.PORT || 3000, function () {
