@@ -28,6 +28,7 @@ sqs.getQueueUrl(params, function(err, data) {
     } else {
         queueUrl = data.QueueUrl;
     }
+    //console.log(self._asm.currentState);
 });
 
 const app = express();
@@ -36,12 +37,12 @@ app.locals.newrelic = newrelic;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
-app.locals.newrelic = newrelic;
+//app.locals.newrelic = newrelic;
 
 // Render home page
 app.get('/', function (req, res) {
     res.render('index', { title: 'Space One Program', message: 'Its year 2045. Alas, Earth is Uninhabitable!' });
-    checkUserAgent(req);
+  //  checkUserAgent(req);
 });
 
 // Get messages from DynamoDB
@@ -71,7 +72,7 @@ app.get('/message', function (req, res) {
         }
     });
 
-   // checkUserAgent(req);
+  // checkUserAgent(req);
 
 });
 
@@ -101,13 +102,13 @@ app.post('/message', function(req, res) {
         res.status(200).send('OK');
     }); 
     
-  //  checkUserAgent(req);
+  checkUserAgent(req);
 });
 
 // Health check
 app.get('/healthz', function (req, res) {
     res.status(200).send('OK');  
-   // checkUserAgent(req);      
+   //checkUserAgent(req);      
 });
 
 app.listen(process.env.PORT || 3000, function () {
@@ -118,7 +119,7 @@ var checkUserAgent = function(req) {
     var userAgent = req.headers['user-agent'];
     console.log('[debug] User agent:' + userAgent);
     if (userAgent.toLowerCase().indexOf('android') != -1) {
-        if (Math.random() * 100 < 20) { // 20% of the Android devices
+        if (Math.random() * 100 < 10) { // 10% of the Android devices
             console.error('Error exception: Failed to parse user-agent "' + userAgent + '"');
             throw Error('Failed parsing user agent');
         }
